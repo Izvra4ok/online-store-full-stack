@@ -1,0 +1,13 @@
+.auth {
+    height: calc(90vh - 60px)
+}
+
+.card {
+    width: 500px;
+    background-color: rgba(0,0,0,0.1 );
+}
+
+.form__input:focus {
+    border: none;
+    box-shadow: 0 0 4px 2px black;
+}

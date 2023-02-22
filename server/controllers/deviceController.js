@@ -8,7 +8,7 @@ class DeviceController {
     async create(request, response, next) {
         try {
             let {name, price, brandId, typeId, info} = request.body;
-            const {img} = request.files;
+            const {img} = await request.files;
             let fileName = uuid.v4() + ".jpg"
             await img.mv(path.resolve(__dirname, "..", "static", fileName))
 
@@ -26,7 +26,7 @@ class DeviceController {
 
             return response.json(device)
         } catch (e) {
-            return next(ApiError.badRequest(e.message))
+            return next(ApiError.badRequest(e.message + "immgggggggggggggggggggg"))
         }
 
     }
@@ -61,7 +61,7 @@ class DeviceController {
 
     async getOneDevice(request, response, next) {
         try {
-            const {id} = request.params
+            const {id} = await request.params
             const device = await Device.findOne(
                 {
                     where: {id},

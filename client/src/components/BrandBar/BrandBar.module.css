@@ -1,4 +1,10 @@
 .brands {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap:10px;
+}
+
+.brand {
     display: flex;
-    flex-direction: row;
+    cursor: pointer;
 }

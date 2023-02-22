@@ -1,34 +1,49 @@
 import React, {useContext} from 'react';
 import {Context} from "../../index";
 import {Button, Container, Nav, Navbar} from "react-bootstrap";
-import {NavLink} from "react-router-dom";
-import {SHOP_ROUTE} from "../../routes/constRouterHelper";
-import cls from "./NavBar.module.css"
+import {NavLink, useNavigate} from "react-router-dom";
+import {ADMIN_ROUTE, LOGIN_ROUTE, SHOP_ROUTE} from "../../routes/constRouterHelper";
 import {observer} from "mobx-react-lite";
+import cls from "./NavBar.module.css"
 
 const NavBar = observer(() => {
+
     const {user} = useContext(Context);
+    const history = useNavigate();
+
+    const logout = () => {
+        user.setUser({});
+        user.setIsAuth(false);
+    };
 
     return (
         <Navbar bg="secondary" variant="dark">
             <Container>
 
-                <NavLink to={SHOP_ROUTE}>
-                    <img className={cls.navbar__logo}
-                         src="https://free-png.ru/wp-content/uploads/2021/12/free-png.ru-173-340x340.png" alt=""/>
+                <NavLink className={cls.logo} to={SHOP_ROUTE}>
+                    <div>Online store</div>
+                    <img className={cls.logoImage}
+                         src="https://free-png.ru/wp-content/uploads/2021/12/free-png.ru-173-340x340.png" alt="logo"/>
                 </NavLink>
 
                 <Nav className="ml-auto">
                     {
                         user.isAuth
                             ? <>
-                                <Button variant={"outline-dark"}>Admin panel</Button>
+                                <Button variant={"outline-dark"} onClick={() => {
+                                    history(ADMIN_ROUTE + "/")
+                                }}>Панель администратора</Button>
+
                                 <Button className="ms-2" variant={"outline-dark"}
-                                        onClick={() => user.setIsAuth(false)}>Log out</Button>
+                                        onClick={() => {
+                                            logout()
+                                            history(LOGIN_ROUTE + "/")
+                                        }}>Выйти</Button>
 
                             </>
                             : <>
-                                <Button onClick={() => user.setIsAuth(true)} variant={"outline-dark"}>Authorization</Button>
+                                <Button onClick={() => history(LOGIN_ROUTE + "/")}
+                                        variant={"outline-dark"}>Авторизация</Button>
                             </>
                     }
                 </Nav>

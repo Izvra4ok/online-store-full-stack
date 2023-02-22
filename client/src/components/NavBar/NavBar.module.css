@@ -1,3 +1,12 @@
-.navbar__logo{
+.logo{
+    font-size: 20px;
+    text-align: center;
+}
+.logo:hover,:focus,:active{
+    color:white;
+}
+
+.logoImage{
     max-width: 50px;
 }
+

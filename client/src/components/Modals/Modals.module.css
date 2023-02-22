@@ -1,0 +1,11 @@
+.form__input:focus {
+    border: none;
+    box-shadow: 0 0 4px 2px black;
+}
+.form__input{
+    margin:20px 0px;
+}
+.form__input_description:focus{
+    border: none;
+    box-shadow: 0 0 4px 2px black;
+}

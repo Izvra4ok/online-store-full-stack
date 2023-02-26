@@ -4,7 +4,7 @@ import {
     ADMIN_ROUTE, BASKET_ROUTE, DEVICE_ROUTE,
     LOGIN_ROUTE, REGISTRATION_ROUTE, SHOP_ROUTE
 } from "./constRouterHelper";
-import BasketPage from "../pages/BasketPage";
+import BasketPage from "../pages/BasketPage/BasketPage";
 import ShopPage from "../pages/ShopPage/ShopPage";
 import AuthPage from "../pages/AuthPage/AuthPage";
 import DevicePage from "../pages/DevicePage/DevicePage";
@@ -16,6 +16,7 @@ export const authRoutes = [
     {path: SHOP_ROUTE, element: <ShopPage/>},
     {path: LOGIN_ROUTE, element: <AuthPage/>},
     {path: REGISTRATION_ROUTE, element: <AuthPage/>},
+    {path: DEVICE_ROUTE + "/:id", element: <DevicePage/>},
 ];
 
 

@@ -12,7 +12,7 @@ class DeviceController {
             let fileName = uuid.v4() + ".jpg"
             await img.mv(path.resolve(__dirname, "..", "static", fileName))
 
-            const device = await Device.create({name, price, brandId, typeId, info, img: fileName})
+            const device = await Device.create({name, price, brandId, typeId, img: fileName})
 
             if (info) {
                 info = JSON.parse(info)
@@ -20,13 +20,13 @@ class DeviceController {
                     DeviceInfo.create({
                         title: inf.title,
                         description: inf.description,
-                        device: device.id
+                        deviceId: device.id
                     }))
             }
-
+            console.log("device:",device, "info",info)
             return response.json(device)
         } catch (e) {
-            return next(ApiError.badRequest(e.message + "immgggggggggggggggggggg"))
+            return next(ApiError.badRequest(e.message))
         }
 
     }
@@ -59,19 +59,15 @@ class DeviceController {
         }
     }
 
-    async getOneDevice(request, response, next) {
-        try {
-            const {id} = await request.params
-            const device = await Device.findOne(
-                {
-                    where: {id},
-                    include: [{model: DeviceInfo, as: "info"}]
-                },
-            )
-            return response.json(device)
-        } catch (e) {
-            return next(ApiError.badRequest(e.message))
-        }
+    async getOneDevice(req, res) {
+        const {id} = req.params
+        const device = await Device.findOne(
+            {
+                where: {id},
+                include: [{model: DeviceInfo, as: 'info'}]
+            },
+        )
+        return res.json(device)
     }
 }
 

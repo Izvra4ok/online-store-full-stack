@@ -1,7 +1,7 @@
 import React, {useContext} from 'react';
 import {observer} from "mobx-react-lite";
 import {Context} from "../../index";
-import {Card, Row} from "react-bootstrap";
+import {Dropdown, Row} from "react-bootstrap";
 import cls from "./BrandBar.module.css";
 
 const BrandBar = observer(() => {
@@ -9,16 +9,18 @@ const BrandBar = observer(() => {
     const {device} = useContext(Context);
 
     return (
-        <Row className={`mt-1 + ${cls.brands}`}>
-            {
-                device.brands.map(brand =>
-                    <Card className={`p-2 + ${cls.brand}`}
-                          onClick={() => device.setSelectedBrand(brand)}
-                          border={brand.id === device.selectedBrand.id ? "primary" : ""}
-                          key={brand.id}>
+        <Row className={`d-flex flex-column mt-1 + ${cls.brands}`}>
+            <h2>Популярные бренды производителей</h2>
+            <Dropdown>
+                <Dropdown.Toggle
+                    variant="secondary">{device.selectedBrand.name || "Выберите бренд устройства"}</Dropdown.Toggle>
+                <Dropdown.Menu>{device.brands.map(brand =>
+                    <Dropdown.Item onClick={() => device.setSelectedBrand(brand)}
+                                   key={brand.id}>
                         {brand.name}
-                    </Card>)
-            }
+                    </Dropdown.Item>
+                )}</Dropdown.Menu>
+            </Dropdown>
         </Row>
     );
 });

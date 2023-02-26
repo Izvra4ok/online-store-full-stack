@@ -6,17 +6,16 @@ import {useNavigate} from "react-router-dom";
 import {DEVICE_ROUTE} from "../../routes/constRouterHelper";
 
 const DeviceItem = ({device}) => {
-    console.log(device)
+
     const history = useNavigate();
 
 
     return (
-        <Col md={4} className={"mt-1"}>
+        <Col md={4} className={"mt-1"} onClick={() => {
+            history(DEVICE_ROUTE + "/" + device.id)}}>
             <Card className={`p-2 d-flex flex-column + ${cls.item}`}>
 
-                <Image width={200} height={200} src={process.env.REACT_APP_API_URL + device.img} onClick={() => {
-                    history(DEVICE_ROUTE + "/" + device.id)
-                }}/>
+                <Image width={200} height={200} src={process.env.REACT_APP_API_URL + device.img}/>
 
                 <div className={"text-black-50 mt-1 d-flex justify-content-between align-items-center"}>
                     <div>{device.name}</div>

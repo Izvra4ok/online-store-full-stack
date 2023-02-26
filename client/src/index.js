@@ -16,9 +16,7 @@ root.render(
         device: new DeviceStore(),
     }}>
         <BrowserRouter>
-            {/*<React.StrictMode>*/}
             <App/>
-            {/*</React.StrictMode>*/}
         </BrowserRouter>
     </Context.Provider>
 );

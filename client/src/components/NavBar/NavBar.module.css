@@ -2,7 +2,7 @@
     font-size: 20px;
     text-align: center;
 }
-.logo:hover,:focus,:active{
+.logo:hover,.logo:focus,.logo:active{
     color:white;
 }
 

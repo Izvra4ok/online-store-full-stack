@@ -1,19 +1,22 @@
 import React, {useEffect, useState} from 'react';
-import cls from "./DevicePage.module.css"
 import {Button, Card, Col, Container, Image, Row} from "react-bootstrap";
 import {useParams} from "react-router-dom";
 import {fetchOneDevice} from "../../DAL/deviceApi";
-import {observer} from "mobx-react-lite";
+import cls from "./DevicePage.module.css"
 
 
-const DevicePage = observer(() => {
+const DevicePage = () => {
 
-    const [device, setDevice] = useState({info: []});
+    const [device, setDevice] = useState({info: [] });
     const {id} = useParams();
 
     useEffect(() => {
-        fetchOneDevice(id).then(data => setDevice(data))
+        fetchOneDevice(id).then(data => {
+            setDevice(data)
+            console.log(data)
+        })
     }, [])
+
 
     return (
         <Container className={"mt-3"}>
@@ -52,6 +55,5 @@ const DevicePage = observer(() => {
             </Row>
         </Container>
     );
-});
-
+};
 export default DevicePage;

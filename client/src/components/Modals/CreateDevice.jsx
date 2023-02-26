@@ -6,6 +6,7 @@ import {createDevice, fetchBrands, fetchTypes} from "../../DAL/deviceApi";
 import {observer} from "mobx-react-lite";
 import cls from "./Modals.module.css";
 
+
 const CreateDevice = observer(({show, onHide}) => {
 
     const {device} = useContext(Context);
@@ -17,7 +18,7 @@ const CreateDevice = observer(({show, onHide}) => {
     useEffect(() => {
         fetchTypes().then(data => device.setTypes(data))
         fetchBrands().then(data => device.setBrands(data))
-    }, [show]);
+    }, []);
 
     const addInfo = () => {
         setInfo([...info, {title: '', description: '', number: Date.now()}])
@@ -36,14 +37,19 @@ const CreateDevice = observer(({show, onHide}) => {
     };
 
     const addDevice = () => {
-        const formData = new FormData();
-        formData.append('name', name);
-        formData.append('price', `${price}`);
-        formData.append('img', file);
-        formData.append('brandId', device.selectedBrand.id);
-        formData.append('typeId', device.selectedType.id);
-        formData.append('info', JSON.stringify(info));
-        createDevice(formData).then(data => onHide());
+        try{
+            const formData = new FormData();
+            formData.append('name', name);
+            formData.append('price', `${price}`);
+            formData.append('img', file);
+            formData.append('brandId', device.selectedBrand.id);
+            formData.append('typeId', device.selectedType.id);
+            formData.append('info', JSON.stringify(info));
+            createDevice(formData).then(data => onHide());
+        } catch (e) {
+            console.log(`${e},`,e)
+        }
+
     }
 
     return (
@@ -62,7 +68,6 @@ const CreateDevice = observer(({show, onHide}) => {
                 <Form>
 
                     <Dropdown>
-
                         <Dropdown.Toggle
                             variant="secondary">{device.selectedType.name || "Выберите тип"}</Dropdown.Toggle>
                         <Dropdown.Menu>{device.types.map(type =>

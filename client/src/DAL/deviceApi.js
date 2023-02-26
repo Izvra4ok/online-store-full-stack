@@ -1,38 +1,68 @@
 import {$host, $authHost} from "./index";
 
 export const createType = async (type) => {
-    const {data} = await $authHost.post("api/type", type);
-    return data
+    try {
+        const {data} = await $authHost.post("api/type", type);
+        return data
+    } catch (e) {
+        console.log(`${e}:`, e)
+    }
+
 };
 
 export const fetchTypes = async () => {
-    const {data} = await $host.get("api/type");
-    return data
+    try {
+        const {data} = await $host.get("api/type");
+        return data
+    } catch (e) {
+        console.log(`${e}:`, e)
+    }
 };
 
 
 export const createBrand = async (brand) => {
-    const {data} = await $authHost.post("api/brand", brand);
-    return data
+    try {
+        const {data} = await $authHost.post("api/brand", brand);
+        return data
+    } catch (e) {
+        console.log(`${e}:`, e)
+    }
 };
 
 export const fetchBrands = async () => {
-    const {data} = await $host.get("api/brand");
-    return data
+    try {
+        const {data} = await $host.get("api/brand");
+        return data
+    } catch (e) {
+        console.log(`${e}:`, e)
+    }
 };
 
 
 export const createDevice = async (device) => {
-    const {data} = await $authHost.post('api/device', device)
-    return data
+    try {
+        const {data} = await $authHost.post('api/device', device)
+        return data
+    } catch (e) {
+        console.log(`${e}:`, e)
+    }
 };
 
 export const fetchDevices = async (typeId, brandId, page = 1, limit = 10) => {
-    const {data} = await $host.get("api/device", {params: {typeId, brandId, page, limit}});
-    return data
+    try {
+        const {data} = await $host.get("api/device", {params: {typeId, brandId, page, limit}});
+        return data
+    } catch (e) {
+        console.log(`${e}:`, e)
+    }
 };
 
 export const fetchOneDevice = async (id) => {
-    const {data} = await $host.get("api/device/" + id);
-    return data
+    try {
+        const {data} = await $host.get(`api/device/${id}`);
+        return data
+    } catch (e) {
+        console.log(`${e}:`, e)
+    }
+
 };

@@ -1,5 +1,5 @@
 import React, {useContext, useEffect} from 'react';
-import {Col, Container, Row} from "react-bootstrap";
+import {Col, Container, Row, Spinner} from "react-bootstrap";
 import TypeBar from "../../components/TypeBar/TypeBar";
 import BrandBar from "../../components/BrandBar/BrandBar";
 import DeviceList from "../../components/DeviceList/DeviceList";
@@ -8,6 +8,7 @@ import {Context} from "../../index";
 import {fetchBrands, fetchDevices, fetchTypes} from "../../DAL/deviceApi";
 import Pages from "../../components/Pagination/Pages";
 
+
 const ShopPage = observer(() => {
 
     const {device} = useContext(Context);
@@ -15,7 +16,7 @@ const ShopPage = observer(() => {
     useEffect(() => {
         fetchTypes().then(data => device.setTypes(data));
         fetchBrands().then(data => device.setBrands(data));
-        fetchDevices(null, null, 1, 10).then(data => {
+        fetchDevices(null, null, 1, 9).then(data => {
             device.setDevices(data.rows)
             device.setTotalCount(data.count)
         })
@@ -26,7 +27,12 @@ const ShopPage = observer(() => {
             device.setDevices(data.rows)
             device.setTotalCount(data.count)
         })
-    }, [device.page, device.selectedType, device.selectedBrand])
+        device.setLimit(device.limit)
+    }, [device.page, device.selectedType, device.selectedBrand,device.limit])
+
+    if (!device) {
+        return <Spinner animation={"grow"}/>
+    }
 
     return (
         <Container>

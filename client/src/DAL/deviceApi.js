@@ -48,7 +48,7 @@ export const createDevice = async (device) => {
     }
 };
 
-export const fetchDevices = async (typeId, brandId, page = 1, limit = 10) => {
+export const fetchDevices = async (typeId, brandId, page = 1, limit = 9) => {
     try {
         const {data} = await $host.get("api/device", {params: {typeId, brandId, page, limit}});
         return data
@@ -60,6 +60,8 @@ export const fetchDevices = async (typeId, brandId, page = 1, limit = 10) => {
 export const fetchOneDevice = async (id) => {
     try {
         const {data} = await $host.get(`api/device/${id}`);
+        let storage = JSON.stringify(data.id);
+        localStorage.setItem('currentDeviceId', storage);
         return data
     } catch (e) {
         console.log(`${e}:`, e)

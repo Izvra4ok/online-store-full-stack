@@ -36,7 +36,7 @@ class DeviceController {
             let {brandId, typeId, limit, page} = request.query
             let offset
             page = page || 1
-            limit = limit || 10
+            limit = limit || 9
             offset = page * limit - limit //вычесление отступа отображения товаров
 
             let devices;

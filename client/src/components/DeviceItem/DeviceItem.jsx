@@ -1,19 +1,19 @@
-import React from 'react';
-import {Card, Col, Image} from "react-bootstrap";
-import cls from "./DeviceItem.module.css"
+import React, {useEffect} from 'react';
+import {Card, Col, Image, Spinner} from "react-bootstrap";
 import star from "../../assets/star.png"
 import {useNavigate} from "react-router-dom";
 import {DEVICE_ROUTE} from "../../routes/constRouterHelper";
+import cls from "./DeviceItem.module.css"
 
 const DeviceItem = ({device}) => {
 
     const history = useNavigate();
 
-
     return (
-        <Col md={4} className={"mt-1"} onClick={() => {
-            history(DEVICE_ROUTE + "/" + device.id)}}>
-            <Card className={`p-2 d-flex flex-column + ${cls.item}`}>
+        <Col xl={4} md={6} className={"mt-1 d-flex align-items-center justify-content-center"} onClick={() => {
+            history(DEVICE_ROUTE + "/" + device.id)
+        }}>
+            <Card className={`p-2 d-flex flex-column justify-content-center + ${cls.item}`}>
 
                 <Image width={200} height={200} src={process.env.REACT_APP_API_URL + device.img}/>
 

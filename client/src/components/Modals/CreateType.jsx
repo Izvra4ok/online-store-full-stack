@@ -1,13 +1,16 @@
-import React, {useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import {Form} from "react-bootstrap";
-import {createType} from "../../DAL/deviceApi";
+import {createType, fetchBrands, fetchTypes} from "../../DAL/deviceApi";
+import {observer} from "mobx-react-lite";
+import {Context} from "../../index";
 import cls from "./Modals.module.css";
 
 
-const CreateType = ({onHide, show}) => {
+const CreateType = observer(({onHide, show}) => {
 
+    const {device} = useContext(Context);
     const [typeName, setTypeName] = useState("");
 
     const addType = () => {
@@ -16,6 +19,11 @@ const CreateType = ({onHide, show}) => {
             onHide();
         }
     }
+
+        useEffect(() => {
+            fetchTypes().then(data => device.setTypes(data));
+            fetchBrands().then(data => device.setBrands(data));
+        }, [fetchTypes,fetchBrands,typeName])
 
     return (
         <Modal show={show} onHide={onHide}>
@@ -42,5 +50,5 @@ const CreateType = ({onHide, show}) => {
         </Modal>
 
     );
-}
+});
 export default CreateType;
